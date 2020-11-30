@@ -24,7 +24,6 @@
 int CHudOverview::Init()
 {
 	gHUD.AddHudElem(this);
-
 	m_iFlags |= HUD_ACTIVE;
 
 	return 1;
@@ -158,4 +157,3 @@ void CHudOverview::InitHUDData()
 //	gEngfuncs.Overview_SetDrawOverview( 1 );
 //	gEngfuncs.Overview_SetDrawInset( 0 );
 }
-

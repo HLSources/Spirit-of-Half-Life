@@ -21,7 +21,6 @@ class CMark : public CPointEntity
 {
 public:
 	bool	CalcVelocity(CBaseEntity *pLocus, Vector* OUTresult) { *OUTresult = pev->movedir; return true; }
-//	bool	CalcAngles( CBaseEntity *pLocus, Vector* OUTresult ) { return UTIL_VecToAngles( CalcVelocity(pLocus) ); }
 	bool	CalcNumber(CBaseEntity *pLocus, float* OUTresult ) { *OUTresult = pev->frags; return true; }
 	void	Think( void ) { SUB_Remove(); }
 };
@@ -737,60 +736,60 @@ bool CCalcPosition::CalcPosition( CBaseEntity *pLocus, Vector* OUTresult )
 	Vector vecResult;
 	switch (pev->impulse)
 	{
-	case 1: //eyes
-		*OUTresult = vecOffset + pSubject->EyePosition();
-		//ALERT(at_console, "calc_subpos returns %f %f %f\n", vecResult.x, vecResult.y, vecResult.z);
-		//return vecOffset + pLocus->EyePosition();
-		break;
-	case 2: // top
-		*OUTresult = vecOffset + pSubject->pev->origin + Vector(
-			(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
-			(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
-			pSubject->pev->maxs.z
-		);
-		break;
-	case 3: // centre
-		*OUTresult = vecOffset + pSubject->pev->origin + Vector(
-			(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
-			(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
-			(pSubject->pev->mins.z + pSubject->pev->maxs.z)/2
-		);
-		break;
-	case 4: // bottom
-		*OUTresult = vecOffset + pSubject->pev->origin + Vector(
-			(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
-			(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
-			pSubject->pev->mins.z
-		);
-		break;
-	case 5:
-		// this could cause problems.
-		// is there a good way to check whether it's really a CBaseAnimating?
-		((CBaseAnimating*)pSubject)->GetAttachment( 0, vecPosition, vecJunk );
-		*OUTresult = vecOffset + vecPosition;
-		break;
-	case 6:
-		((CBaseAnimating*)pSubject)->GetAttachment( 1, vecPosition, vecJunk );
-		*OUTresult = vecOffset + vecPosition;
-		break;
-	case 7:
-		((CBaseAnimating*)pSubject)->GetAttachment( 2, vecPosition, vecJunk );
-		*OUTresult = vecOffset + vecPosition;
-		break;
-	case 8:
-		((CBaseAnimating*)pSubject)->GetAttachment( 3, vecPosition, vecJunk );
-		*OUTresult = vecOffset + vecPosition;
-		break;
-	case 9:
-		*OUTresult = vecOffset + pSubject->pev->origin + Vector(
-			RANDOM_FLOAT(pSubject->pev->mins.x, pSubject->pev->maxs.x),
-			RANDOM_FLOAT(pSubject->pev->mins.y, pSubject->pev->maxs.y),
-			RANDOM_FLOAT(pSubject->pev->mins.z, pSubject->pev->maxs.z)
-		);
-		break;
-	default:
-		*OUTresult = vecOffset + pSubject->pev->origin;
-		break;
+		case 1: //eyes
+			*OUTresult = vecOffset + pSubject->EyePosition();
+			//ALERT(at_console, "calc_subpos returns %f %f %f\n", vecResult.x, vecResult.y, vecResult.z);
+			//return vecOffset + pLocus->EyePosition();
+			break;
+		case 2: // top
+			*OUTresult = vecOffset + pSubject->pev->origin + Vector(
+				(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
+				(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
+				pSubject->pev->maxs.z
+			);
+			break;
+		case 3: // centre
+			*OUTresult = vecOffset + pSubject->pev->origin + Vector(
+				(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
+				(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
+				(pSubject->pev->mins.z + pSubject->pev->maxs.z)/2
+			);
+			break;
+		case 4: // bottom
+			*OUTresult = vecOffset + pSubject->pev->origin + Vector(
+				(pSubject->pev->mins.x + pSubject->pev->maxs.x)/2,
+				(pSubject->pev->mins.y + pSubject->pev->maxs.y)/2,
+				pSubject->pev->mins.z
+			);
+			break;
+		case 5:
+			// this could cause problems.
+			// is there a good way to check whether it's really a CBaseAnimating?
+			((CBaseAnimating*)pSubject)->GetAttachment( 0, vecPosition, vecJunk );
+			*OUTresult = vecOffset + vecPosition;
+			break;
+		case 6:
+			((CBaseAnimating*)pSubject)->GetAttachment( 1, vecPosition, vecJunk );
+			*OUTresult = vecOffset + vecPosition;
+			break;
+		case 7:
+			((CBaseAnimating*)pSubject)->GetAttachment( 2, vecPosition, vecJunk );
+			*OUTresult = vecOffset + vecPosition;
+			break;
+		case 8:
+			((CBaseAnimating*)pSubject)->GetAttachment( 3, vecPosition, vecJunk );
+			*OUTresult = vecOffset + vecPosition;
+			break;
+		case 9:
+			*OUTresult = vecOffset + pSubject->pev->origin + Vector(
+				RANDOM_FLOAT(pSubject->pev->mins.x, pSubject->pev->maxs.x),
+				RANDOM_FLOAT(pSubject->pev->mins.y, pSubject->pev->maxs.y),
+				RANDOM_FLOAT(pSubject->pev->mins.z, pSubject->pev->maxs.z)
+			);
+			break;
+		default:
+			*OUTresult = vecOffset + pSubject->pev->origin;
+			break;
 	}
 
 	if ( pev->spawnflags & SF_CALCPOSITION_DEBUG )

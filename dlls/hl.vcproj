@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="hl"
 	ProjectGUID="{1C9F46EB-3FE6-41D1-9108-B30FCA334712}"
 	TargetFrameworkVersion="131072"
@@ -28,8 +28,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;c:\games\half-life\spirit\dlls\spirit.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;spirit.dll &quot;c:\games\half-life\spirit\dlls\spirit1.8a1.dll&quot;&#x0D;&#x0A;"
-				Outputs="c:\games\half-life\spirit\dlls\spirit.dll;c:\games\half-life\spirit\dlls\spirit1.5a4.dll"
+				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;spirit.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll&quot;&#x0D;&#x0A;"
+				Outputs="F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -128,8 +128,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;C:\games\half-life\spirit\dlls\spirit15a4.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;spirit.dll &quot;C:\games\half-life\spirit\dlls\spirit.dll&quot;&#x0D;&#x0A;"
-				Outputs="c:\games\half-life\spirit\dlls\spirit15a4.dll;c:\games\half-life\spirit\dlls\spirit.dll"
+				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;spirit.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll&quot;&#x0D;&#x0A;"
+				Outputs="F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -227,8 +227,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;C:\games\half-life\spirit\dlls\spirit.dll&quot;&#x0D;&#x0A;"
-				Outputs="C:\games\half-life\spirit\dlls\spirit.dll"
+				CommandLine="copy &quot;$(TargetDir)&quot;spirit.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll&quot;&#x0D;&#x0A;"
+				Outputs="F:\Steam\steamapps\hammermaps771\half-life\Spirit18\dlls\spirit.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -257,7 +257,7 @@
 				ObjectFile=".\debughl/"
 				ProgramDataBaseFileName=".\debughl/"
 				BrowseInformation="1"
-				WarningLevel="3"
+				WarningLevel="2"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
 				CompileAs="0"
@@ -2876,6 +2876,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\otis.cpp"
+				>
+			</File>
+			<File
 				RelativePath="pathcorner.cpp"
 				>
 				<FileConfiguration
@@ -4278,6 +4282,10 @@
 			</File>
 			<File
 				RelativePath="func_break.h"
+				>
+			</File>
+			<File
+				RelativePath=".\game.h"
 				>
 			</File>
 			<File

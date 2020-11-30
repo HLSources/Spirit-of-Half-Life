@@ -53,7 +53,6 @@ int gEvilImpulse101;
 BOOL g_markFrameBounds = 0; //LRC
 extern DLL_GLOBAL int		g_iSkillLevel, gDisplayTitle;
 
-
 BOOL gInitHUD = TRUE;
 
 extern void CopyToBodyQue(entvars_t* pev);
@@ -242,6 +241,7 @@ int gmsgStatusValue = 0;
 int gmsgCamData; // for trigger_viewset
 int gmsgRainData = 0;
 int gmsgInventory = 0; //AJH Inventory system
+int gmsgLensFlare = 0;
 
 void LinkUserMessages( void )
 {
@@ -302,6 +302,7 @@ void LinkUserMessages( void )
 	gmsgPlayMP3 = REG_USER_MSG("PlayMP3", -1);	//Killar
 	gmsgRainData = REG_USER_MSG("RainData", 16);
 	gmsgInventory = REG_USER_MSG("Inventory", -1);	//AJH Inventory system
+	gmsgLensFlare = REG_USER_MSG( "Lensflare", -1 );
 }
 
 LINK_ENTITY_TO_CLASS( player, CBasePlayer );
@@ -407,16 +408,21 @@ int TrainSpeed(int iSpeed, int iMax)
 	return iRet;
 }
 
+void CBasePlayer::ViewPunch( float p, float y, float r )
+{
+	pev->vuser3[0] -= p * 20;
+	pev->vuser3[1] += y * 20;
+	pev->vuser3[2] += r * 20;
+}
+
 void CBasePlayer :: DeathSound( void )
 {
 	// water death sounds
-	/*
 	if (pev->waterlevel == 3)
 	{
 		EMIT_SOUND(ENT(pev), CHAN_VOICE, "player/h2odeath.wav", 1, ATTN_NONE);
 		return;
 	}
-	*/
 
 	// temporarily using pain sounds for death sounds
 	switch (RANDOM_LONG(1,5))
@@ -436,6 +442,7 @@ void CBasePlayer :: DeathSound( void )
 	//LRC- if no suit, then no flatline sound. (unless it's a deathmatch.)
 	if ( !(pev->weapons & (1<<WEAPON_SUIT)) && !g_pGameRules->IsDeathmatch() )
 		return;
+
 	EMIT_GROUPNAME_SUIT(ENT(pev), "HEV_DEAD");
 }
 
@@ -3549,13 +3556,10 @@ void CBloodSplat::Spray ( void )
 {
 	TraceResult	tr;
 
-	if ( g_Language != LANGUAGE_GERMAN )
-	{
-		UTIL_MakeVectors(pev->angles);
-		UTIL_TraceLine ( pev->origin, pev->origin + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, & tr);
+	UTIL_MakeVectors(pev->angles);
+	UTIL_TraceLine ( pev->origin, pev->origin + gpGlobals->v_forward * 128, ignore_monsters, pev->owner, & tr);
 
-		UTIL_BloodDecalTrace( &tr, BLOOD_COLOR_RED );
-	}
+	UTIL_BloodDecalTrace( &tr, BLOOD_COLOR_RED );
 	SetThink(&CBloodSplat:: SUB_Remove );
 	SetNextThink( 0.1 );
 }
@@ -3854,7 +3858,6 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "ammo_ARgrenades" );
 		GiveNamedItem( "weapon_handgrenade" );
 		GiveNamedItem( "weapon_tripmine" );
-#ifndef OEM_BUILD
 		GiveNamedItem( "weapon_357" );
 		GiveNamedItem( "ammo_357" );
 		GiveNamedItem( "weapon_crossbow" );
@@ -3868,9 +3871,8 @@ void CBasePlayer::CheatImpulseCommands( int iImpulse )
 		GiveNamedItem( "weapon_snark" );
 		GiveNamedItem( "weapon_hornetgun" );		
 		GiveNamedItem( "item_longjump" );
-#endif
 		gEvilImpulse101 = FALSE;
-		break;
+	break;
 
 	case 102:
 		// Gibbage!!!

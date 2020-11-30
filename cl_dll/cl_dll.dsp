@@ -61,14 +61,14 @@ InputPath=.\Release\client.dll
 SOURCE="$(InputPath)"
 
 BuildCmds= \
-	copy $(TargetDir)\client.dll "c:\games\half-life\spirit\cl_dlls\client1.5a4.dll" \
-	copy $(TargetDir)\client.dll "c:\games\half-life\spirit\cl_dlls\client.dll" \
+	copy $(TargetDir)\client.dll "F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client1.5a4.dll" \
+	copy $(TargetDir)\client.dll "F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll" \
 	
 
-"c:\games\half-life\spirit\cl_dlls\client1.5a4.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client1.5a4.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 
-"c:\games\half-life\spirit\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
+"F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
    $(BuildCmds)
 # End Custom Build
 

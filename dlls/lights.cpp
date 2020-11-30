@@ -29,69 +29,69 @@ int GetStdLightStyle (int iStyle)
 {
 	switch (iStyle)
 	{
-	// 0 normal
-	case 0: return MAKE_STRING("m");
+		// 0 normal
+		case 0: return MAKE_STRING("m");
 
-	// 1 FLICKER (first variety)
-	case 1: return MAKE_STRING("mmnmmommommnonmmonqnmmo");
+		// 1 FLICKER (first variety)
+		case 1: return MAKE_STRING("mmnmmommommnonmmonqnmmo");
 
-	// 2 SLOW STRONG PULSE
-	case 2: return MAKE_STRING("abcdefghijklmnopqrstuvwxyzyxwvutsrqponmlkjihgfedcba");
+		// 2 SLOW STRONG PULSE
+		case 2: return MAKE_STRING("abcdefghijklmnopqrstuvwxyzyxwvutsrqponmlkjihgfedcba");
 
-	// 3 CANDLE (first variety)
-	case 3: return MAKE_STRING("mmmmmaaaaammmmmaaaaaabcdefgabcdefg");
+		// 3 CANDLE (first variety)
+		case 3: return MAKE_STRING("mmmmmaaaaammmmmaaaaaabcdefgabcdefg");
 
-	// 4 FAST STROBE
-	case 4: return MAKE_STRING("mamamamamama");
+		// 4 FAST STROBE
+		case 4: return MAKE_STRING("mamamamamama");
 	
-	// 5 GENTLE PULSE 1
-	case 5: return MAKE_STRING("jklmnopqrstuvwxyzyxwvutsrqponmlkj");
+		// 5 GENTLE PULSE 1
+		case 5: return MAKE_STRING("jklmnopqrstuvwxyzyxwvutsrqponmlkj");
 	
-	// 6 FLICKER (second variety)
-	case 6: return MAKE_STRING("nmonqnmomnmomomno");
+		// 6 FLICKER (second variety)
+		case 6: return MAKE_STRING("nmonqnmomnmomomno");
 	
-	// 7 CANDLE (second variety)
-	case 7: return MAKE_STRING("mmmaaaabcdefgmmmmaaaammmaamm");
+		// 7 CANDLE (second variety)
+		case 7: return MAKE_STRING("mmmaaaabcdefgmmmmaaaammmaamm");
 	
-	// 8 CANDLE (third variety)
-	case 8: return MAKE_STRING("mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa");
+		// 8 CANDLE (third variety)
+		case 8: return MAKE_STRING("mmmaaammmaaammmabcdefaaaammmmabcdefmmmaaaa");
 	
-	// 9 SLOW STROBE (fourth variety)
-	case 9: return MAKE_STRING("aaaaaaaazzzzzzzz");
+		// 9 SLOW STROBE (fourth variety)
+		case 9: return MAKE_STRING("aaaaaaaazzzzzzzz");
 	
-	// 10 FLUORESCENT FLICKER
-	case 10: return MAKE_STRING("mmamammmmammamamaaamammma");
+		// 10 FLUORESCENT FLICKER
+		case 10: return MAKE_STRING("mmamammmmammamamaaamammma");
 
-	// 11 SLOW PULSE NOT FADE TO BLACK
-	case 11: return MAKE_STRING("abcdefghijklmnopqrrqponmlkjihgfedcba");
+		// 11 SLOW PULSE NOT FADE TO BLACK
+		case 11: return MAKE_STRING("abcdefghijklmnopqrrqponmlkjihgfedcba");
 	
-	// 12 UNDERWATER LIGHT MUTATION
-	// this light only distorts the lightmap - no contribution
-	// is made to the brightness of affected surfaces
-	case 12: return MAKE_STRING("mmnnmmnnnmmnn");
+		// 12 UNDERWATER LIGHT MUTATION
+		// this light only distorts the lightmap - no contribution
+		// is made to the brightness of affected surfaces
+		case 12: return MAKE_STRING("mmnnmmnnnmmnn");
 
-	// 13 OFF (LRC)
-	case 13: return MAKE_STRING("a");
+		// 13 OFF (LRC)
+		case 13: return MAKE_STRING("a");
 
-	// 14 SLOW FADE IN (LRC)
-	case 14: return MAKE_STRING("aabbccddeeffgghhiijjkkllmmmmmmmmmmmmmm");
+		// 14 SLOW FADE IN (LRC)
+		case 14: return MAKE_STRING("aabbccddeeffgghhiijjkkllmmmmmmmmmmmmmm");
 
-	// 15 MED FADE IN (LRC)
-	case 15: return MAKE_STRING("abcdefghijklmmmmmmmmmmmmmmmmmmmmmmmmmm");
+		// 15 MED FADE IN (LRC)
+		case 15: return MAKE_STRING("abcdefghijklmmmmmmmmmmmmmmmmmmmmmmmmmm");
 
-	// 16 FAST FADE IN (LRC)
-	case 16: return MAKE_STRING("acegikmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+		// 16 FAST FADE IN (LRC)
+		case 16: return MAKE_STRING("acegikmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
 
-	// 17 SLOW FADE OUT (LRC)
-	case 17: return MAKE_STRING("llkkjjiihhggffeeddccbbaaaaaaaaaaaaaaaa");
+		// 17 SLOW FADE OUT (LRC)
+		case 17: return MAKE_STRING("llkkjjiihhggffeeddccbbaaaaaaaaaaaaaaaa");
 
-	// 18 MED FADE OUT (LRC)
-	case 18: return MAKE_STRING("lkjihgfedcbaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		// 18 MED FADE OUT (LRC)
+		case 18: return MAKE_STRING("lkjihgfedcbaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-	// 19 FAST FADE OUT (LRC)
-	case 19: return MAKE_STRING("kigecaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		// 19 FAST FADE OUT (LRC)
+		case 19: return MAKE_STRING("kigecaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-	default: return MAKE_STRING("m");
+		default: return MAKE_STRING("m");
 	}
 }
 
@@ -115,17 +115,18 @@ public:
 
 	void	SetCorrectStyle( void ); //LRC
 
-private:
-	STATE	m_iState; // current state
-	int		m_iOnStyle; // style to use while on
-	int		m_iOffStyle; // style to use while off
-	int		m_iTurnOnStyle; // style to use while turning on
-	int		m_iTurnOffStyle; // style to use while turning off
-	int		m_iTurnOnTime; // time taken to turn on
-	int		m_iTurnOffTime; // time taken to turn off
-	int		m_iszPattern; // custom style to use while on
-	int		m_iszCurrentStyle; // current style string
+	private:
+		STATE	m_iState; // current state
+		int		m_iOnStyle; // style to use while on
+		int		m_iOffStyle; // style to use while off
+		int		m_iTurnOnStyle; // style to use while turning on
+		int		m_iTurnOffStyle; // style to use while turning off
+		int		m_iTurnOnTime; // time taken to turn on
+		int		m_iTurnOffTime; // time taken to turn off
+		int		m_iszPattern; // custom style to use while on
+		int		m_iszCurrentStyle; // current style string
 };
+
 LINK_ENTITY_TO_CLASS( light, CLight );
 
 TYPEDESCRIPTION	CLight::m_SaveData[] = 
@@ -142,7 +143,6 @@ TYPEDESCRIPTION	CLight::m_SaveData[] =
 };
 
 IMPLEMENT_SAVERESTORE( CLight, CPointEntity );
-
 
 //
 // Cache user-entity-field values until spawn is called.
@@ -204,6 +204,7 @@ void CLight :: SetStyle ( int iszPattern )
 {
 	if (m_iStyle < 32) // if it's using a global style, don't change it
 		return;
+
 	m_iszCurrentStyle = iszPattern;
 //	ALERT(at_console, "SetStyle %d \"%s\"\n", m_iStyle, (char *)STRING( iszPattern ));
 	LIGHT_STYLE(m_iStyle, (char *)STRING( iszPattern ));

@@ -161,6 +161,7 @@ void CBaseAnimating :: DispatchAnimEvents ( float flInterval )
 
 	while ( (index = GetAnimationEvent( pmodel, pev, &event, flStart, flEnd, index ) ) != 0 )
 	{
+
 		HandleAnimEvent( &event );
 	}
 }

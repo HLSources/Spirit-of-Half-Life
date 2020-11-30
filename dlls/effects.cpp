@@ -191,6 +191,70 @@ void CBubbling::FizzThink( void )
 		SetNextThink( 2.5 - (0.1 * m_frequency) );
 }
 
+//=======================
+// Sun Flare effect
+//=======================
+
+extern int gmsgLensFlare;
+
+class CClientFlare : public CBaseEntity
+{
+public:
+    void Spawn( void );
+    void Think( void );
+    void KeyValue( KeyValueData* );
+    
+    virtual int    Save( CSave &save );
+    virtual int    Restore( CRestore &restore );
+    static    TYPEDESCRIPTION m_SaveData[];
+    
+    int m_iPitch;
+    int m_iRoll;
+};
+
+void CClientFlare :: KeyValue( KeyValueData *pkvd )
+{
+    if (FStrEq(pkvd->szKeyName, "pitch"))
+    {
+        m_iPitch = atoi(pkvd->szValue);
+        pkvd->fHandled = TRUE;
+    }
+    else if (FStrEq(pkvd->szKeyName, "roll"))
+    {
+        m_iRoll = atoi(pkvd->szValue);
+        pkvd->fHandled = TRUE;
+    }
+    else
+        CBaseEntity::KeyValue( pkvd );
+}
+
+void CClientFlare :: Spawn ( void )
+{
+    pev->effects |= EF_NODRAW;
+    
+    pev->nextthink = gpGlobals->time + 0.1;
+}
+
+void CClientFlare :: Think ( void )
+{
+	MESSAGE_BEGIN( MSG_ALL, gmsgLensFlare, pev->origin);
+	WRITE_COORD ( m_iPitch );
+	WRITE_COORD ( m_iRoll );
+	WRITE_BYTE ( 1 );
+	MESSAGE_END();
+    
+    pev->nextthink = gpGlobals->time + 0.1;
+}
+
+TYPEDESCRIPTION    CClientFlare::m_SaveData[] =
+{
+    DEFINE_FIELD( CClientFlare, m_iPitch, FIELD_INTEGER ),
+    DEFINE_FIELD( CClientFlare, m_iRoll, FIELD_INTEGER ),
+};
+IMPLEMENT_SAVERESTORE( CClientFlare, CBaseEntity );
+
+LINK_ENTITY_TO_CLASS( env_sun, CClientFlare );
+
 // --------------------------------------------------
 // 
 // Beams
@@ -1969,11 +2033,7 @@ LINK_ENTITY_TO_CLASS( gibshooter, CGibShooter );
 
 void CGibShooter :: Precache ( void )
 {
-	if ( g_Language == LANGUAGE_GERMAN )
-	{
-		m_iGibModelIndex = PRECACHE_MODEL ("models/germanygibs.mdl");
-	}
-	else if (m_iBloodColor == BLOOD_COLOR_YELLOW)
+	if (m_iBloodColor == BLOOD_COLOR_YELLOW)
 	{
 		m_iGibModelIndex = PRECACHE_MODEL ("models/agibs.mdl");
 	}
@@ -2443,114 +2503,6 @@ CBaseEntity *CEnvShooter :: CreateGib ( Vector vecPos, Vector vecVel )
 	}
 	return pShot;
 }
-
-
-
-
-class CTestEffect : public CBaseDelay
-{
-public:
-	void	Spawn( void );
-	void	Precache( void );
-	// void	KeyValue( KeyValueData *pkvd );
-	void EXPORT TestThink( void );
-	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
-
-	int		m_iLoop;
-	int		m_iBeam;
-	CBeam	*m_pBeam[24];
-	float	m_flBeamTime[24];
-	float	m_flStartTime;
-};
-
-
-LINK_ENTITY_TO_CLASS( test_effect, CTestEffect );
-
-void CTestEffect::Spawn( void )
-{
-	Precache( );
-}
-
-void CTestEffect::Precache( void )
-{
-	PRECACHE_MODEL( "sprites/lgtning.spr" );
-}
-
-void CTestEffect::TestThink( void )
-{
-	int i;
-	float t = (gpGlobals->time - m_flStartTime);
-
-	if (m_iBeam < 24)
-	{
-		CBeam *pbeam = CBeam::BeamCreate( "sprites/lgtning.spr", 100 );
-
-		TraceResult		tr;
-
-		Vector vecSrc = pev->origin;
-		Vector vecDir = Vector( RANDOM_FLOAT( -1.0, 1.0 ), RANDOM_FLOAT( -1.0, 1.0 ),RANDOM_FLOAT( -1.0, 1.0 ) );
-		vecDir = vecDir.Normalize();
-		UTIL_TraceLine( vecSrc, vecSrc + vecDir * 128, ignore_monsters, ENT(pev), &tr);
-
-		pbeam->PointsInit( vecSrc, tr.vecEndPos );
-		// pbeam->SetColor( 80, 100, 255 );
-		pbeam->SetColor( 255, 180, 100 );
-		pbeam->SetWidth( 100 );
-		pbeam->SetScrollRate( 12 );
-		
-		m_flBeamTime[m_iBeam] = gpGlobals->time;
-		m_pBeam[m_iBeam] = pbeam;
-		m_iBeam++;
-
-#if 0
-		Vector vecMid = (vecSrc + tr.vecEndPos) * 0.5;
-		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
-			WRITE_BYTE(TE_DLIGHT);
-			WRITE_COORD(vecMid.x);	// X
-			WRITE_COORD(vecMid.y);	// Y
-			WRITE_COORD(vecMid.z);	// Z
-			WRITE_BYTE( 20 );		// radius * 0.1
-			WRITE_BYTE( 255 );		// r
-			WRITE_BYTE( 180 );		// g
-			WRITE_BYTE( 100 );		// b
-			WRITE_BYTE( 20 );		// time * 10
-			WRITE_BYTE( 0 );		// decay * 0.1
-		MESSAGE_END( );
-#endif
-	}
-
-	if (t < 3.0)
-	{
-		for (i = 0; i < m_iBeam; i++)
-		{
-			t = (gpGlobals->time - m_flBeamTime[i]) / ( 3 + m_flStartTime - m_flBeamTime[i]);
-			m_pBeam[i]->SetBrightness( 255 * t );
-			// m_pBeam[i]->SetScrollRate( 20 * t );
-		}
-		SetNextThink( 0.1 );
-	}
-	else
-	{
-		for (i = 0; i < m_iBeam; i++)
-		{
-			UTIL_Remove( m_pBeam[i] );
-		}
-		m_flStartTime = gpGlobals->time;
-		m_iBeam = 0;
-		// pev->nextthink = gpGlobals->time;
-		SetThink( NULL );
-	}
-}
-
-
-void CTestEffect::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
-{
-	SetThink(&CTestEffect:: TestThink );
-	SetNextThink( 0.1 );
-	m_flStartTime = gpGlobals->time;
-}
-
-
 
 // Blood effects
 class CBlood : public CPointEntity
@@ -5008,3 +4960,103 @@ TYPEDESCRIPTION	CRainModify::m_SaveData[] =
 };
 IMPLEMENT_SAVERESTORE( CRainModify, CBaseEntity );
 
+//=========================================================
+// Islave MultiBeam
+//=========================================================
+class CMultiBeamEffect : public CBaseDelay
+{
+public:
+	void	Spawn( void );
+	void	Precache( void );
+	void EXPORT Think( void );
+	void Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value );
+
+	int		m_iLoop;
+	int		m_iBeam;
+	CBeam	*m_pBeam[24];
+	float	m_flBeamTime[24];
+	float	m_flStartTime;
+};
+
+LINK_ENTITY_TO_CLASS( multibeam_effect, CMultiBeamEffect );
+
+void CMultiBeamEffect::Spawn( void )
+{
+	Precache( );
+}
+
+void CMultiBeamEffect::Precache( void )
+{
+	PRECACHE_MODEL( "sprites/lgtning.spr" );
+}
+
+void CMultiBeamEffect::Think( void )
+{
+	int i;
+	float t = (gpGlobals->time - m_flStartTime);
+
+	if (m_iBeam < 24)
+	{
+		CBeam *pbeam = CBeam::BeamCreate( "sprites/lgtning.spr", 100 );
+
+		TraceResult		tr;
+
+		Vector vecSrc = pev->origin;
+		Vector vecDir = Vector( RANDOM_FLOAT( -1.0, 1.0 ), RANDOM_FLOAT( -1.0, 1.0 ),RANDOM_FLOAT( -1.0, 1.0 ) );
+		vecDir = vecDir.Normalize();
+		UTIL_TraceLine( vecSrc, vecSrc + vecDir * 128, ignore_monsters, ENT(pev), &tr);
+
+		pbeam->PointsInit( vecSrc, tr.vecEndPos );
+		// pbeam->SetColor( 80, 100, 255 );
+		pbeam->SetColor( 255, 180, 100 );
+		pbeam->SetWidth( 100 );
+		pbeam->SetScrollRate( 12 );
+		
+		m_flBeamTime[m_iBeam] = gpGlobals->time;
+		m_pBeam[m_iBeam] = pbeam;
+		m_iBeam++;
+
+		Vector vecMid = (vecSrc + tr.vecEndPos) * 0.5;
+		MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
+			WRITE_BYTE(TE_DLIGHT);
+			WRITE_COORD(vecMid.x);	// X
+			WRITE_COORD(vecMid.y);	// Y
+			WRITE_COORD(vecMid.z);	// Z
+			WRITE_BYTE( 20 );		// radius * 0.1
+			WRITE_BYTE( 255 );		// r
+			WRITE_BYTE( 180 );		// g
+			WRITE_BYTE( 100 );		// b
+			WRITE_BYTE( 20 );		// time * 10
+			WRITE_BYTE( 0 );		// decay * 0.1
+		MESSAGE_END( );
+	}
+
+	if (t < 3.0)
+	{
+		for (i = 0; i < m_iBeam; i++)
+		{
+			t = (gpGlobals->time - m_flBeamTime[i]) / ( 3 + m_flStartTime - m_flBeamTime[i]);
+			m_pBeam[i]->SetBrightness( 255 * t );
+			// m_pBeam[i]->SetScrollRate( 20 * t );
+		}
+		pev->nextthink = gpGlobals->time + 0.1;
+	}
+	else
+	{
+		for (i = 0; i < m_iBeam; i++)
+		{
+			UTIL_Remove( m_pBeam[i] );
+		}
+		m_flStartTime = gpGlobals->time;
+		m_iBeam = 0;
+		// pev->nextthink = gpGlobals->time;
+		SetThink( NULL );
+	}
+}
+
+void CMultiBeamEffect::Use( CBaseEntity *pActivator, CBaseEntity *pCaller, USE_TYPE useType, float value )
+{
+	SetThink( &CMultiBeamEffect::Think );
+	pev->nextthink = gpGlobals->time + 0.1;
+	m_flStartTime = gpGlobals->time;
+}

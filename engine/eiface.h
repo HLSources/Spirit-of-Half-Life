@@ -383,7 +383,12 @@ typedef struct
 	short			flags;
 } TYPEDESCRIPTION;
 
+#if !defined ( _MSC_VER )
+#if defined ( ARRAYSIZE ))
+#undef ARRAYSIZE
+#endif
 #define ARRAYSIZE(p)		(sizeof(p)/sizeof(p[0]))
+#endif
 
 typedef struct 
 {

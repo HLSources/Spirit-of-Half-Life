@@ -157,7 +157,7 @@ void ProcessRain( void )
 			gEngfuncs.pEventAPI->EV_SetTraceHull( 2 );
 			gEngfuncs.pEventAPI->EV_PlayerTrace( vecStart, vecEnd, PM_STUDIO_IGNORE, -1, &pmtrace );
 
-			if (pmtrace.startsolid)
+			if (pmtrace.startsolid || pmtrace.allsolid)
 			{
 				if (gHUD.RainInfo->value)
 					debug_dropped++;

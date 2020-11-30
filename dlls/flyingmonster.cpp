@@ -22,7 +22,6 @@
 #define FLYING_AE_FLAP		(8)
 #define FLYING_AE_FLAPSOUND	(9)
 
-
 extern DLL_GLOBAL edict_t		*g_pBodyQueueHead;
 
 int CFlyingMonster :: CheckLocalMove ( const Vector &vecStart, const Vector &vecEnd, CBaseEntity *pTarget, float *pflDist )
@@ -72,7 +71,6 @@ Activity CFlyingMonster :: GetStoppedActivity( void )
 	return ACT_HOVER; 
 }
 
-
 void CFlyingMonster :: Stop( void ) 
 { 
 	Activity stopped = GetStoppedActivity();
@@ -85,7 +83,6 @@ void CFlyingMonster :: Stop( void )
 	pev->angles.x = 0;
 	m_vecTravel = g_vecZero;
 }
-
 
 float CFlyingMonster :: ChangeYaw( int speed )
 {

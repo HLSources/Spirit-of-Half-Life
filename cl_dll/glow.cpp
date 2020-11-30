@@ -27,10 +27,10 @@ Merged and given some nicer CVARs by FragBait0, tlevi@tpg.com.au
 //End tri.cpp
 
 #include <windows.h>
-#include <gl/gl.h>
-#include <gl/glext.h>
-#include <cg/cg.h>
-#include <cg/cgGL.h>
+#include "../common/gl/gl.h"
+#include "../common/gl/glext.h"
+#include "../common/cg/cg.h"
+#include "../common/cg/cgGL.h"
 #include "r_studioint.h"
 
 #define DLLEXPORT __declspec( dllexport )
@@ -191,13 +191,13 @@ void InitScreenGlowShader(void)
      cgGLSetOptimalOptions(g_cgVertProfile);
 
      // VP LOADING
-     if (!LoadProgram(&g_cgVP_GlowDarken, g_cgVertProfile, "cgshaders/glow_darken_vp.cg"))
+     if (!LoadProgram(&g_cgVP_GlowDarken, g_cgVertProfile, "shaders/glow_darken_vp.cg"))
           return;
 
-     if (!LoadProgram(&g_cgVP_GlowBlur, g_cgVertProfile, "cgshaders/glow_blur_vp.cg"))
+     if (!LoadProgram(&g_cgVP_GlowBlur, g_cgVertProfile, "shaders/glow_blur_vp.cg"))
           return;
 
-     if (!LoadProgram(&g_cgVP_GlowCombine, g_cgVertProfile, "cgshaders/glow_combine_vp.cg"))
+     if (!LoadProgram(&g_cgVP_GlowCombine, g_cgVertProfile, "shaders/glow_combine_vp.cg"))
           return;
 
      // VP PARAM GRABBING
@@ -219,13 +219,13 @@ void InitScreenGlowShader(void)
      cgGLSetOptimalOptions(g_cgFragProfile);
 
      // FP LOADING
-     if (!LoadProgram(&g_cgFP_GlowDarken, g_cgFragProfile, "cgshaders/glow_darken_fp.cg"))
+     if (!LoadProgram(&g_cgFP_GlowDarken, g_cgFragProfile, "shaders/glow_darken_fp.cg"))
           return;
 
-     if (!LoadProgram(&g_cgFP_GlowBlur, g_cgFragProfile, "cgshaders/glow_blur_fp.cg"))
+     if (!LoadProgram(&g_cgFP_GlowBlur, g_cgFragProfile, "shaders/glow_blur_fp.cg"))
           return;
 
-     if (!LoadProgram(&g_cgFP_GlowCombine, g_cgFragProfile, "cgshaders/glow_combine_fp.cg"))
+     if (!LoadProgram(&g_cgFP_GlowCombine, g_cgFragProfile, "shaders/glow_combine_fp.cg"))
           return;
 
 	 bGlowShaderInitialised = true;
@@ -269,11 +269,7 @@ void RenderScreenGlowShader(void)
 	if (IEngineStudio.IsHardware() != 1){
 		return;
 	}
-/*	AJH - This is redundant as the function now returns if r_glow!=1
-	//check the cvar for the glow is on.
-    if (CVAR_GET_FLOAT("r_glow") == 0)
-         return;
-*/
+
 	//if the mode isn't shader then return.
 	if (CVAR_GET_FLOAT("r_glow") != 1)
 		  return;

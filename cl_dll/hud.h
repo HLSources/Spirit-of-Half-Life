@@ -189,6 +189,54 @@ private:
 //
 //-----------------------------------------------------
 //
+class CHudLensflare: public CHudBase
+{
+	public:
+		int Init( void );
+		int VidInit( void );
+		int Draw(float flTime);
+		int MsgFunc_Lensflare(const char *pszName, int iSize, void *pbuf);
+    
+		int SunEnabled;
+    
+	private:
+		int Sunanglex;
+		int Sunangley;
+    
+		int Sunadd[5];
+    
+		float flPlayerBlend;
+		float flPlayerBlend2;
+		float flPlayerBlend3;
+		float flPlayerBlend4;
+		float flPlayerBlend5;
+		float flPlayerBlend6;
+    
+		float Screenmx;
+		float Screenmy;
+    
+		float multi[10];
+    
+		int scale[10];
+    
+		int red[10];
+		int green[10];
+		int blue[10];
+    
+		char text[10];
+		float Lensx[10];
+		float Lensy[10];
+    
+		float Suncoordx;
+		float Suncoordy;
+    
+		float Sundistx;
+		float Sundisty;
+};
+
+//
+//-----------------------------------------------------
+//
 class CHudTrain: public CHudBase
 {
 public:
@@ -258,41 +306,6 @@ protected:
 	// an array of colors...one color for each line
 	float *m_pflNameColors[MAX_STATUSBAR_LINES];
 };
-
-//
-//-----------------------------------------------------
-//
-// REMOVED: Vgui has replaced this.
-//
-/*
-class CHudScoreboard: public CHudBase
-{
-public:
-	int Init( void );
-	void InitHUDData( void );
-	int VidInit( void );
-	int Draw( float flTime );
-	int DrawPlayers( int xoffset, float listslot, int nameoffset = 0, char *team = NULL ); // returns the ypos where it finishes drawing
-	void UserCmd_ShowScores( void );
-	void UserCmd_HideScores( void );
-	int MsgFunc_ScoreInfo( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_TeamInfo( const char *pszName, int iSize, void *pbuf );
-	int MsgFunc_TeamScore( const char *pszName, int iSize, void *pbuf );
-	void DeathMsg( int killer, int victim );
-
-	int m_iNumTeams;
-
-	int m_iLastKilledBy;
-	int m_fLastKillTime;
-	int m_iPlayerNum;
-	int m_iShowscoresHeld;
-
-	void GetAllPlayersInfo( void );
-private:
-	struct cvar_s *cl_showpacketloss;
-
-};
-*/
 
 struct extra_player_info_t
 {
@@ -583,7 +596,6 @@ public:
 //-----------------------------------------------------
 //
 
-
 //LRC - for the moment, skymode has only two settings
 #define SKY_OFF 0
 #define SKY_ON_DRAWING  2
@@ -664,7 +676,6 @@ public:
 		return m_rgrcRects[index];
 	}
 
-
 	int GetSpriteIndex( const char *SpriteName );	// gets a sprite index, for use in the m_rghSprites[] array
 
 	CHudAmmo		m_Ammo;
@@ -683,6 +694,7 @@ public:
 	CHudTextMessage m_TextMessage;
 	CHudStatusIcons m_StatusIcons;
 	CHudParticle	m_Particle; // (LRC) -- 30/08/02 November235: Particles to Order
+	CHudLensflare   m_Lensflare;
 
 	void Init( void );
 	void VidInit( void );

@@ -46,8 +46,6 @@
 #include "vgui_helpers.h"
 #include "vgui_mousecode.h"
 
-
-
 using namespace vgui;
 
 #define VOICE_MODEL_INTERVAL		0.3
@@ -634,7 +632,7 @@ void CVoiceStatus::HandleVoiceMaskMsg(int iSize, void *pbuf)
 		{
 			char str[256];
 			gEngfuncs.pfnConsolePrint("CVoiceStatus::HandleVoiceMaskMsg\n");
-			
+
 			sprintf(str, "    - m_AudiblePlayers[%d] = %lu\n", dw, m_AudiblePlayers.GetDWord(dw));
 			gEngfuncs.pfnConsolePrint(str);
 			

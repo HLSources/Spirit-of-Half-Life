@@ -564,16 +564,8 @@ void CWorld :: Precache( void )
 	PRECACHE_SOUND( "common/bodydrop3.wav" );// dead bodies hitting the ground (animation events)
 	PRECACHE_SOUND( "common/bodydrop4.wav" );
 	
-	g_Language = (int)CVAR_GET_FLOAT( "sv_language" );
-	if ( g_Language == LANGUAGE_GERMAN )
-	{
-		PRECACHE_MODEL( "models/germangibs.mdl" );
-	}
-	else
-	{
-		PRECACHE_MODEL( "models/hgibs.mdl" );
-		PRECACHE_MODEL( "models/agibs.mdl" );
-	}
+	PRECACHE_MODEL( "models/hgibs.mdl" );
+	PRECACHE_MODEL( "models/agibs.mdl" );
 
 	PRECACHE_SOUND ("weapons/ric1.wav");
 	PRECACHE_SOUND ("weapons/ric2.wav");
@@ -627,6 +619,11 @@ void CWorld :: Precache( void )
 		CVAR_SET_FLOAT( "sv_zmax", pev->speed );
 	else
 		CVAR_SET_FLOAT( "sv_zmax", 4096 );
+
+	if (CVAR_GET_FLOAT("r_detailtexturessupported") == 1)
+		CVAR_SET_FLOAT("r_detailtextures", 1);
+	else
+		CVAR_SET_FLOAT("r_detailtextures", 0);
 
 	if ( pev->netname )
 	{

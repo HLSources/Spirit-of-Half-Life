@@ -56,105 +56,166 @@ public:
 };
 
 
-/* AJH we don't need to specify this stuff in here. It's now in items.h instead
-// constant items
-#define ITEM_HEALTHKIT		1
-#define ITEM_ANTIDOTE		2
-#define ITEM_SECURITY		3
-#define ITEM_BATTERY		4
-#define ITEM_LONGJUMP		5
 
-//AJH extended inventory
-#define ITEM_SLOT6			6
-#define ITEM_SLOT7			7
-#define ITEM_SLOT8			8
-#define ITEM_SLOT9			9
-#define ITEM_SLOT10			10
-*/
-
-#define WEAPON_NONE				0
-#define WEAPON_CROWBAR			1
-#define WEAPON_GLOCK			2
-#define WEAPON_PYTHON			3
-#define WEAPON_GENERIC			4
-#define WEAPON_MP5				5
-#define WEAPON_DEBUG                           	6 //G-Cont. weapon for hunt bugs. he-he-he
-#define WEAPON_CROSSBOW			7
-#define WEAPON_SHOTGUN			8
-#define WEAPON_RPG				9
+#define WEAPON_RPG			9
 #define WEAPON_GAUSS			10
-#define WEAPON_EGON				11
-#define WEAPON_HORNETGUN			12
-#define WEAPON_HANDGRENADE			13
+#define WEAPON_EGON			11
+#define WEAPON_HORNETGUN		12
+#define WEAPON_HANDGRENADE		13
 #define WEAPON_TRIPMINE			14
 #define WEAPON_SATCHEL			15
 #define WEAPON_SNARK			16
 
 
 #define WEAPON_ALLWEAPONS		(~(1<<WEAPON_SUIT))
-
-#define WEAPON_SUIT				31	// ?????
-
+#define WEAPON_SUIT			31	// ?????
 #define MAX_WEAPONS			32
+#define MAX_NORMAL_BATTERY		100
 
+/*
+* ##########################################
+* Weapons Define Settings
+* ##########################################
+*/
 
-#define MAX_NORMAL_BATTERY	100
+/* Weapons NO Clips */
+#define MAX_CLIP_NOCLIP		-1
+#define MAX_AMMO_NOCLIP		-1
 
+/* All Weapons */
+#define MAX_CARRY_357			36
+#define	MAX_CARRY_9MM			200
+#define MAX_CARRY_BUCKSHOT		125
+#define MAX_CARRY_BOLT			50
+#define MAX_CARRY_URANIUM		100
+#define MAX_CARRY_M203			10
+#define MAX_CARRY_HORNET		8
+#define MAX_CARRY_SNARK			15
+#define MAX_CARRY_HANDGRENADE	10
+#define MAX_CARRY_SATCHEL		5
+#define MAX_CARRY_TRIPMINE		5
 
-// weapon weight factors (for auto-switching)   (-1 = noswitch)
-#define CROWBAR_WEIGHT		0
-#define GLOCK_WEIGHT		10
-#define PYTHON_WEIGHT		15
-#define MP5_WEIGHT			15
-#define SHOTGUN_WEIGHT		15
-#define CROSSBOW_WEIGHT		10
-#define RPG_WEIGHT			20
-#define GAUSS_WEIGHT		20
-#define EGON_WEIGHT			20
-#define HORNETGUN_WEIGHT	10
-#define HANDGRENADE_WEIGHT	5
-#define SNARK_WEIGHT		5
-#define SATCHEL_WEIGHT		-10
-#define TRIPMINE_WEIGHT		-10
+/* Weapon None # 0 # */
+#define WEAPON_NONE		0
 
-// weapon clip/carry ammo capacities
-#define URANIUM_MAX_CARRY		100
-#define	_9MM_MAX_CARRY			250
-#define _357_MAX_CARRY			36
-#define BUCKSHOT_MAX_CARRY		125
-#define BOLT_MAX_CARRY			50
-#define ROCKET_MAX_CARRY		5
-#define HANDGRENADE_MAX_CARRY	10
-#define SATCHEL_MAX_CARRY		5
-#define TRIPMINE_MAX_CARRY		5
-#define SNARK_MAX_CARRY			15
-#define HORNET_MAX_CARRY		8
-#define M203_GRENADE_MAX_CARRY	10
+/* Weapon Debug # 1 # */
+#define WEAPON_DEBUG		6
+#define WEIGHT_DEBUG		-10
+#define SLOT_DEBUG			0
+#define POSITION_DEBUG		1
 
-// the maximum amount of ammo each weapon's clip can hold
-#define WEAPON_NOCLIP			-1
+/* Weapon Crowbar # 2 # */
+#define WEAPON_CROWBAR		1
+#define WEIGHT_CROWBAR		5
+#define SLOT_CROWBAR		0
+#define POSITION_CROWBAR	0
 
-//#define CROWBAR_MAX_CLIP		WEAPON_NOCLIP
-#define GLOCK_MAX_CLIP			17
-#define PYTHON_MAX_CLIP			6
-#define MP5_MAX_CLIP			50
-#define MP5_DEFAULT_AMMO		25
-#define SHOTGUN_MAX_CLIP		8
-#define CROSSBOW_MAX_CLIP		5
-#define RPG_MAX_CLIP			1
-#define GAUSS_MAX_CLIP			WEAPON_NOCLIP
-#define EGON_MAX_CLIP			WEAPON_NOCLIP
-#define HORNETGUN_MAX_CLIP		WEAPON_NOCLIP
-#define HANDGRENADE_MAX_CLIP	WEAPON_NOCLIP
-#define SATCHEL_MAX_CLIP		WEAPON_NOCLIP
-#define TRIPMINE_MAX_CLIP		WEAPON_NOCLIP
-#define SNARK_MAX_CLIP			WEAPON_NOCLIP
+/* Weapon Glock 9mm # 3 # */
+#define WEAPON_GLOCK		2
+#define WEIGHT_GLOCK		10
+#define SLOT_GLOCK			1
+#define POSITION_GLOCK		0
+
+//Ammo
+#define	MAX_CLIP_GLOCK		17
+#define DEFAULT_GIVE_GLOCK	17
+
+/* Weapon Python 357mm # 4 #  */
+#define WEAPON_PYTHON				3
+#define WEIGHT_PYTHON				15
+#define SLOT_PYTHON					1
+#define POSITION_PYTHON				1
+
+//Ammo
+#define MAX_CLIP_PYTHON				6
+#define DEFAULT_GIVE_PYTHON			6
+
+/* Weapon MP5 9mm # 5 #  */
+#define WEAPON_MP5					5
+#define WEIGHT_MP5					15
+#define SLOT_MP5					2
+#define POSITION_MP5				0
+
+//Ammo
+#define MAX_CLIP_MP5				50
+#define DEFAULT_GIVE_MP5			25
+
+/* Weapon Shotgun # 6 #  */
+#define WEAPON_SHOTGUN				8
+#define WEIGHT_SHOTGUN				15
+#define SLOT_SHOTGUN				2
+#define POSITION_SHOTGUN			1
+
+//Ammo
+
+/* Weapon Crossbow # 7 #  */
+#define WEAPON_CROSSBOW				7
+#define WEIGHT_CROSSBOW				10
+#define SLOT_CROSSBOW				2
+#define POSITION_CROSSBOW			2
+
+//Ammo
+#define MAX_CLIP_CROSSBOW			5
+
+/* Weapon RPG # 8 #  */
+#define WEAPON_RPG					9
+#define WEIGHT_RPG					20
+#define SLOT_RPG					3
+#define POSITION_RPG				0
+
+//Ammo
+#define MAX_CLIP_RPG				1
+#define MAX_CARRY_ROCKET			5
+
+/* Weapon Gauss # 9 #  */
+#define WEAPON_GAUSS				10
+#define WEIGHT_GAUSS				20
+#define SLOT_GAUSS					3
+#define POSITION_GAUSS				1
+
+/* Weapon EGON # 10 #  */
+#define WEAPON_EGON					11
+#define WEIGHT_EGON					20
+#define SLOT_EGON					3
+#define POSITION_EGON				2
+
+//Ammo
+#define AMMO_URANIUMBOX_GIVE		20
+
+/* Weapon Hornetgun # 11 #  */
+#define WEAPON_HORNETGUN			12
+#define WEIGHT_HORNETGUN			10
+#define SLOT_HORNETGUN				3
+#define POSITION_HORNETGUN			3
+
+/* Weapon Handgrenade # 12 #  */
+#define WEAPON_HANDGRENADE	 		13
+#define WEIGHT_HANDGRENADE	 		0
+#define SLOT_HANDGRENADE	 		4
+#define POSITION_HANDGRENADE	 	0
+
+//Ammo
+#define DEFAULT_GIVE_HANDGRENADE	1
+
+/* Weapon Tripmine # 13 #  */
+#define WEAPON_TRIPMINE				14
+#define WEIGHT_TRIPMINE				0
+#define SLOT_TRIPMINE				4
+#define POSITION_TRIPMINE			2
+
+/* Weapon Exp-Satchel # 14 #  */
+#define WEAPON_SATCHEL				15
+#define WEIGHT_SATCHEL				0
+#define SLOT_SATCHEL				4
+#define POSITION_SATCHEL			1
+
+/* Weapon Snark # 15 #  */
+#define WEAPON_SNARK				16
+#define WEIGHT_SNARK				0
+#define SLOT_SNARK					4
+#define POSITION_SNARK				3
 
 // the default amount of ammo that comes with each gun when it spawns
-#define GLOCK_DEFAULT_GIVE			17
-#define PYTHON_DEFAULT_GIVE			6
-#define MP5_DEFAULT_GIVE			25
-#define MP5_DEFAULT_AMMO			25
 #define MP5_M203_DEFAULT_GIVE		0
 #define SHOTGUN_DEFAULT_GIVE		12
 #define CROSSBOW_DEFAULT_GIVE		5
@@ -168,17 +229,20 @@ public:
 #define HIVEHAND_DEFAULT_GIVE		8
 
 // The amount of ammo given to a player by an ammo item.
-#define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_GLOCKCLIP_GIVE		GLOCK_MAX_CLIP
-#define AMMO_357BOX_GIVE		PYTHON_MAX_CLIP
+#define AMMO_357BOX_GIVE		MAX_CLIP_PYTHON
 #define AMMO_MP5CLIP_GIVE		MP5_MAX_CLIP
 #define AMMO_CHAINBOX_GIVE		200
 #define AMMO_M203BOX_GIVE		2
 #define AMMO_BUCKSHOTBOX_GIVE	12
 #define AMMO_CROSSBOWCLIP_GIVE	CROSSBOW_MAX_CLIP
 #define AMMO_RPGCLIP_GIVE		RPG_MAX_CLIP
-#define AMMO_URANIUMBOX_GIVE	20
 #define AMMO_SNARKBOX_GIVE		5
+
+//monsters the maximum amount of ammo each weapon's clip can hold
+#define	OTIS_MAX_WEAPON_CLIP	7
+#define	BARNEY_MAX_WEAPON_CLIP_GLOCK	17
+#define	BARNEY_MAX_WEAPON_CLIP_357	17
 
 // bullet types
 typedef	enum
@@ -229,9 +293,6 @@ typedef struct
 class CBasePlayerItem : public CBaseAnimating
 {
 public:
-
-
-	
 	virtual void SetObjectCollisionBox( void );
 	#ifndef CLIENT_DLL 								//AJH for lockable weapons
 	virtual void	KeyValue( KeyValueData* pkvd);	//
@@ -574,15 +635,15 @@ public:
 
 	virtual BOOL UseDecrement( void )
 	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
+		#if defined( CLIENT_WEAPONS )
+				return TRUE;
+		#else
+				return FALSE;
+		#endif
 	}
 
-private:
-	unsigned short m_usFirePython;
+	private:
+		unsigned short m_usFirePython;
 };
 
 class CMP5 : public CBasePlayerWeapon
@@ -597,7 +658,6 @@ public:
 	void SecondaryAttack( void );
 	int SecondaryAmmoIndex( void );
 	BOOL Deploy( void );
-	void Holster( int skiplocal = 0 );
 	void Reload( void );
 	void WeaponIdle( void );
 	float m_flNextAnimTime;
@@ -605,11 +665,11 @@ public:
 
 	virtual BOOL UseDecrement( void )
 	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
+		#if defined( CLIENT_WEAPONS )
+				return TRUE;
+		#else
+				return FALSE;
+		#endif
 	}
 
 private:
@@ -638,11 +698,11 @@ public:
 
 	virtual BOOL UseDecrement( void )
 	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
+		#if defined( CLIENT_WEAPONS )
+				return TRUE;
+		#else
+				return FALSE;
+		#endif
 	}
 
 private:
@@ -678,11 +738,11 @@ public:
 
 	virtual BOOL UseDecrement( void )
 	{ 
-#if defined( CLIENT_WEAPONS )
-		return TRUE;
-#else
-		return FALSE;
-#endif
+		#if defined( CLIENT_WEAPONS )
+				return TRUE;
+		#else
+				return FALSE;
+		#endif
 	}
 
 private:

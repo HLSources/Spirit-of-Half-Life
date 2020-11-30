@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2002, NVIDIA Corporation.
+ * Copyright (c) 2002-2010, NVIDIA Corporation.
  * 
  *  
  * 
@@ -14,7 +14,7 @@
  * 
  * In consideration of your agreement to abide by the following terms, and 
  * subject to these terms, NVIDIA grants you a personal, non-exclusive license,
- * under NVIDIA’s copyrights in this original NVIDIA software (the "NVIDIA 
+ * under NVIDIA's copyrights in this original NVIDIA software (the "NVIDIA 
  * Software"), to use, reproduce, modify and redistribute the NVIDIA 
  * Software, with or without modifications, in source and/or binary forms; 
  * provided that if you redistribute the NVIDIA Software, you must retain the 
@@ -51,7 +51,7 @@
 #ifndef CGD3D8_INCLUDED
 #define CGD3D8_INCLUDED
 
-#if WIN32
+#ifdef _WIN32
 
 #pragma once
 
@@ -60,17 +60,21 @@
 #include <d3dx8.h>
 
 // Set up for either Win32 import/export/lib.
-#if WIN32
-    # include <windows.h>
-    #ifdef CGD3D8DLL_EXPORTS
-    #define CGD3D8DLL_API __declspec(dllexport)
-    #elif defined (CG_LIB)
-    #define CGD3D8DLL_API
-    #else
-    #define CGD3D8DLL_API __declspec(dllimport)
-    #endif
+#include <windows.h>
+#ifdef CGD3D8DLL_EXPORTS
+#define CGD3D8DLL_API __declspec(dllexport)
+#elif defined (CG_LIB)
+#define CGD3D8DLL_API
 #else
-    #define CGD3D8DLL_API
+#define CGD3D8DLL_API __declspec(dllimport)
+#endif
+
+#ifndef CGD3D8ENTRY
+# ifdef _WIN32
+#  define CGD3D8ENTRY __cdecl
+# else
+#  define CGD3D8ENTRY
+# endif
 #endif
 
 /*---------------------------------------------------------------------------
@@ -115,24 +119,24 @@ extern "C"
 // Minimal Interface
 ---------------------------------------------------------------------------*/
 
-CGD3D8DLL_API 
-DWORD cgD3D8TypeToSize(
+CGD3D8DLL_API DWORD CGD3D8ENTRY
+cgD3D8TypeToSize(
   CGtype type
 );
 
-CGD3D8DLL_API 
-DWORD cgD3D8ResourceToInputRegister(
+CGD3D8DLL_API DWORD CGD3D8ENTRY
+cgD3D8ResourceToInputRegister(
   CGresource resource
 );
 
-CGD3D8DLL_API 
-CGbool cgD3D8GetVertexDeclaration(
+CGD3D8DLL_API CGbool CGD3D8ENTRY
+cgD3D8GetVertexDeclaration(
   CGprogram prog,
   DWORD     decl[MAX_FVF_DECL_SIZE]
 );
 
-CGD3D8DLL_API 
-CGbool cgD3D8ValidateVertexDeclaration(
+CGD3D8DLL_API CGbool CGD3D8ENTRY
+cgD3D8ValidateVertexDeclaration(
   CGprogram    prog,
   const DWORD* decl
 );
@@ -142,17 +146,17 @@ CGbool cgD3D8ValidateVertexDeclaration(
 ---------------------------------------------------------------------------*/
 
 /* ----- D3D Device Control ----------- */
-CGD3D8DLL_API 
-IDirect3DDevice8* cgD3D8GetDevice();
+CGD3D8DLL_API IDirect3DDevice8 * CGD3D8ENTRY
+cgD3D8GetDevice();
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetDevice(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetDevice(
   IDirect3DDevice8* pDevice
 );
 
 /* ----- Shader Management ----------- */
-CGD3D8DLL_API 
-HRESULT cgD3D8LoadProgram(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8LoadProgram(
   CGprogram    prog,
   CGbool       paramShadowing,
   DWORD        assemFlags,
@@ -160,109 +164,109 @@ HRESULT cgD3D8LoadProgram(
   const DWORD* vertexDecl
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8UnloadProgram(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8UnloadProgram(
   CGprogram prog
 );
 
-CGD3D8DLL_API 
-CGbool cgD3D8IsProgramLoaded(
+CGD3D8DLL_API CGbool CGD3D8ENTRY
+cgD3D8IsProgramLoaded(
   CGprogram prog
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8BindProgram(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8BindProgram(
   CGprogram prog
 );
 
 /* ----- Parameter Management ----------- */
-CGD3D8DLL_API 
-HRESULT cgD3D8SetUniform(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetUniform(
   CGparameter param,
   const void* floats
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetUniformArray(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetUniformArray(
   CGparameter param,
   DWORD       offset,
   DWORD       numItems,
   const void* values
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetUniformMatrix(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetUniformMatrix(
   CGparameter      param,
   const D3DMATRIX* matrix
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetUniformMatrixArray(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetUniformMatrixArray(
   CGparameter      param,
   DWORD            offset,
   DWORD            numItems,
   const D3DMATRIX* matrices
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetTexture(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetTexture(
   CGparameter            param,
   IDirect3DBaseTexture8* tex
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetTextureStageState(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetTextureStageState(
   CGparameter              param,
   D3DTEXTURESTAGESTATETYPE type,
   DWORD                    value 
 );
 
-CGD3D8DLL_API 
-HRESULT cgD3D8SetTextureWrapMode(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8SetTextureWrapMode(
   CGparameter param,
   DWORD       value 
 );
 
 /* ----- Parameter Management (Shadowing) ----------- */
-CGD3D8DLL_API 
-HRESULT cgD3D8EnableParameterShadowing(
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8EnableParameterShadowing(
   CGprogram prog,
   CGbool enable
 );
 
-CGD3D8DLL_API 
-CGbool cgD3D8IsParameterShadowingEnabled(
+CGD3D8DLL_API CGbool CGD3D8ENTRY
+cgD3D8IsParameterShadowingEnabled(
   CGprogram prog
 );
 
 /* --------- Profile Options ----------------- */
-CGD3D8DLL_API 
-CGprofile cgD3D8GetLatestVertexProfile();
+CGD3D8DLL_API CGprofile CGD3D8ENTRY
+cgD3D8GetLatestVertexProfile();
 
-CGD3D8DLL_API 
-CGprofile cgD3D8GetLatestPixelProfile();
+CGD3D8DLL_API CGprofile CGD3D8ENTRY
+cgD3D8GetLatestPixelProfile();
 
-CGD3D8DLL_API 
-char const* cgD3D8GetOptimalOptions(
+CGD3D8DLL_API const char * CGD3D8ENTRY
+cgD3D8GetOptimalOptions(
   CGprofile profile
 );
 
 /* --------- Error reporting ----------------- */
-CGD3D8DLL_API 
-HRESULT cgD3D8GetLastError();
+CGD3D8DLL_API HRESULT CGD3D8ENTRY
+cgD3D8GetLastError();
 
-CGD3D8DLL_API 
-const char* cgD3D8TranslateCGerror(
+CGD3D8DLL_API const char * CGD3D8ENTRY
+cgD3D8TranslateCGerror(
   CGerror error
 );
 
-CGD3D8DLL_API 
-const char* cgD3D8TranslateHRESULT(
+CGD3D8DLL_API const char * CGD3D8ENTRY
+cgD3D8TranslateHRESULT(
   HRESULT hr
 );
 
-CGD3D8DLL_API
-void cgD3D8EnableDebugTracing(
+CGD3D8DLL_API void CGD3D8ENTRY
+cgD3D8EnableDebugTracing(
   CGbool enable
 );
 
@@ -270,6 +274,6 @@ void cgD3D8EnableDebugTracing(
 };
 #endif
 
-#endif // WIN32
+#endif // _WIN32
 
 #endif

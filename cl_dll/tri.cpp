@@ -20,7 +20,6 @@
 #include "rain.h" 
 #include "com_model.h"
 #include "studio_util.h"
-
 #include "glInclude.h"
 
 #define DLLEXPORT __declspec( dllexport )
@@ -30,10 +29,6 @@ extern "C"
 	void DLLEXPORT HUD_DrawNormalTriangles( void );
 	void DLLEXPORT HUD_DrawTransparentTriangles( void );
 };
-
-	
-	
-
 
 extern int g_iWaterLevel;
 extern vec3_t v_origin;
@@ -434,7 +429,7 @@ Render any triangles with transparent rendermode needs here
 =================
 */
 extern ParticleSystemManager* g_pParticleSystems; // LRC
-
+class CException;
 void DLLEXPORT HUD_DrawTransparentTriangles( void )
 {
 	BlackFog();

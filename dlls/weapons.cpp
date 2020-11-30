@@ -38,7 +38,7 @@ extern int gEvilImpulse101;
 #define NOT_USED 255
 
 DLL_GLOBAL	short		g_sModelIndexLaser;// holds the index for the laser beam
-DLL_GLOBAL  	const char 	*g_pModelNameLaser = "sprites/laserbeam.spr";
+DLL_GLOBAL  const char 	*g_pModelNameLaser = "sprites/laserbeam.spr";
 DLL_GLOBAL	short    		g_sModelIndexLaserDot;// holds the index for the laser beam dot
 DLL_GLOBAL	short    		g_sModelIndexFireball;// holds the index for the fireball
 DLL_GLOBAL	short    		g_sModelIndexSmoke;// holds the index for the smoke cloud
@@ -216,25 +216,6 @@ void EjectBrass ( const Vector &vecOrigin, const Vector &vecVelocity, float rota
 		WRITE_BYTE ( 25 );// 2.5 seconds
 	MESSAGE_END();
 }
-
-
-#if 0
-// UNDONE: This is no longer used?
-void ExplodeModel( const Vector &vecOrigin, float speed, int model, int count )
-{
-	MESSAGE_BEGIN( MSG_PVS, SVC_TEMPENTITY, vecOrigin );
-		WRITE_BYTE ( TE_EXPLODEMODEL );
-		WRITE_COORD( vecOrigin.x );
-		WRITE_COORD( vecOrigin.y );
-		WRITE_COORD( vecOrigin.z );
-		WRITE_COORD( speed );
-		WRITE_SHORT( model );
-		WRITE_SHORT( count );
-		WRITE_BYTE ( 15 );// 1.5 seconds
-	MESSAGE_END();
-}
-#endif
-
 
 int giAmmoIndex = 0;
 
@@ -704,7 +685,7 @@ void CBasePlayerWeapon::ItemPostFrame( void )
 		m_pPlayer->TabulateAmmo();
 		PrimaryAttack();
 	}
-	else if ( m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != WEAPON_NOCLIP && !m_fInReload ) 
+	else if ( m_pPlayer->pev->button & IN_RELOAD && iMaxClip() != MAX_CLIP_NOCLIP && !m_fInReload ) 
 	{
 		// reload when reload is pressed, or if no buttons are down and weapon is empty.
 		Reload();
@@ -759,7 +740,6 @@ void CBasePlayerItem::DestroyItem( void )
 int CBasePlayerItem::AddToPlayer( CBasePlayer *pPlayer )
 {
 	m_pPlayer = pPlayer;
-
 	return TRUE;
 }
 
@@ -899,7 +879,6 @@ int CBasePlayerWeapon::UpdateClientData( CBasePlayer *pPlayer )
 
 	return 1;
 }
-
 
 void CBasePlayerWeapon::SendWeaponAnim( int iAnim, int skiplocal, int body )
 {
@@ -1196,7 +1175,7 @@ int CBasePlayerWeapon::ExtractClipAmmo( CBasePlayerWeapon *pWeapon )
 {
 	int			iAmmo;
 
-	if ( m_iClip == WEAPON_NOCLIP )
+	if ( m_iClip == MAX_CLIP_NOCLIP )
 	{
 		iAmmo = 0;// guns with no clips always come empty if they are second-hand
 	}
@@ -1309,7 +1288,6 @@ void CWeaponBox::Spawn( void )
 
 	pev->movetype = MOVETYPE_TOSS;
 	pev->solid = SOLID_TRIGGER;
-
 	UTIL_SetSize( pev, g_vecZero, g_vecZero );
 
 	SET_MODEL( ENT(pev), "models/w_weaponbox.mdl");
@@ -1653,3 +1631,22 @@ TYPEDESCRIPTION	CSatchel::m_SaveData[] =
 };
 IMPLEMENT_SAVERESTORE( CSatchel, CBasePlayerWeapon );
 
+//=========================================================
+//Monster WeaponFlash
+//=========================================================
+void WeaponFlash ( const Vector &vecOrigin )
+{
+	int m_iRadius = RANDOM_FLOAT ( 16 , 12 );
+    MESSAGE_BEGIN( MSG_BROADCAST, SVC_TEMPENTITY );
+         WRITE_BYTE( TE_DLIGHT );
+         WRITE_COORD( vecOrigin.x ); // origin
+         WRITE_COORD( vecOrigin.y );
+         WRITE_COORD( vecOrigin.z );
+         WRITE_BYTE( m_iRadius );     // radius
+         WRITE_BYTE( 255 );     // R
+         WRITE_BYTE( 192 );     // G
+         WRITE_BYTE( 64 );     // B
+         WRITE_BYTE( 0 );     // life * 10
+         WRITE_BYTE( 0 ); // decay
+    MESSAGE_END();
+}

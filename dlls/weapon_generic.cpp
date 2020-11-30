@@ -16,6 +16,7 @@
 ====== weapon_generic.cpp ========================================================
 */
 
+/* Remove!
 #include "extdll.h"
 #include "util.h"
 #include "cbase.h"
@@ -232,4 +233,4 @@ void CWpnGeneric::WeaponIdle( void )
 		}
 		SendWeaponAnim( iAnim, 1 );
 	}
-}
+} */

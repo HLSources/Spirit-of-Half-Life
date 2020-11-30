@@ -1,0 +1,13 @@
+###################################################################################
+General Changelog for Spirit of Half-Life 1.8 Alpha 1 (Microsoft Visual C++ 2010)
+###################################################################################
+
+############### "Source Code Version: 1" ###############
+
+[FIX]: 		"#define ARRAYSIZE(p)..." for VC++ 2008
+[ENABLED]: 	Realtime Glow
+[FIX]:		Add the Missing CG-VertProfile Files
+[ADD]:		NPC Otis "monster_otis" from Opposing Force
+[CHANGE]:	Color from Islave Zap Beam Lightflash 
+[ADD]:		New Movestep effect
+[ADD]:		Sun Flare effect

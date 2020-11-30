@@ -23,7 +23,8 @@ typedef	enum
 	BULLET_MONSTER_12MM,
 } Bullet;
 
-enum glock_e {
+enum glock_e 
+{
 	GLOCK_IDLE1 = 0,
 	GLOCK_IDLE2,
 	GLOCK_IDLE3,
@@ -50,7 +51,8 @@ enum generic_e
 	GENERIC_SPECIAL
 };
 
-enum shotgun_e {
+enum shotgun_e 
+{
 	SHOTGUN_IDLE = 0,
 	SHOTGUN_FIRE,
 	SHOTGUN_FIRE2,
@@ -67,16 +69,16 @@ enum mp5_e
 {
 	MP5_LONGIDLE = 0,
 	MP5_IDLE1,
-	MP5_LAUNCH,
+	MP5_GRENADE,
 	MP5_RELOAD,
 	MP5_DEPLOY,
-	MP5_FIRE1,
-	MP5_FIRE2,
-	MP5_FIRE3,
-	MP5_HOLSTER
+	MP5_SHOOT1,
+	MP5_SHOOT2,
+	MP5_SHOOT3
 };
 
-enum python_e {
+enum python_e 
+{
 	PYTHON_IDLE1 = 0,
 	PYTHON_FIDGET,
 	PYTHON_FIRE1,

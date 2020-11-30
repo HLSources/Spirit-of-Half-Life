@@ -64,6 +64,9 @@ int CHud :: MsgFunc_ResetHUD(const char *pszName, int iSize, void *pbuf )
 	g_fEndDist = 0;
 	numMirrors = 0;
 */
+	//Lensflare
+	m_Lensflare.SunEnabled = FALSE;
+
 	return 1;
 }
 
@@ -92,6 +95,9 @@ void CHud :: MsgFunc_InitHUD( const char *pszName, int iSize, void *pbuf )
 	numMirrors = 0;
 
 	m_iSkyMode = SKY_OFF; //LRC
+
+	//Lensflare
+	m_Lensflare.SunEnabled = FALSE;
 
 	// prepare all hud data
 	HUDLIST *pList = m_pHudList;

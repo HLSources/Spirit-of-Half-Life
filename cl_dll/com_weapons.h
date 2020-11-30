@@ -7,6 +7,7 @@
 
 // com_weapons.h
 // Shared weapons common function prototypes
+#define _CRT_SECURE_NO_WARNINGS
 #if !defined( COM_WEAPONSH )
 #define COM_WEAPONSH
 #ifdef _WIN32

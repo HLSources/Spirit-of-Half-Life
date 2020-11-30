@@ -273,6 +273,7 @@ public:
 	void ItemPostFrame( void );
 	void GiveNamedItem( const char *szName );
 	void EnableControl(BOOL fControl);
+	void ViewPunch( float p, float y, float r );
 
 	int  GiveAmmo( int iAmount, char *szName, int iMax );
 	void SendAmmoUpdate(void);

@@ -350,9 +350,10 @@ int __MsgFunc_AllowSpec(const char *pszName, int iSize, void *pbuf)
 // This is called every time the DLL is loaded
 void CHud :: Init( void )
 {
-#ifdef ENGINE_DEBUG
-	CONPRINT("## CHud::Init\n");
-#endif
+	#ifdef ENGINE_DEBUG
+		CONPRINT("## CHud::Init\n");
+	#endif
+
 	HOOK_MESSAGE( Logo );
 	HOOK_MESSAGE( ResetHUD );
 	HOOK_MESSAGE( GameMode );
@@ -363,7 +364,6 @@ void CHud :: Init( void )
 	HOOK_MESSAGE( HUDColor ); //LRC
 	HOOK_MESSAGE( SetFog ); //LRC
 	HOOK_MESSAGE( KeyedDLight ); //LRC
-//	HOOK_MESSAGE( KeyedELight ); //LRC
 	HOOK_MESSAGE( AddShine ); //LRC
 	HOOK_MESSAGE( Test ); //LRC
 	HOOK_MESSAGE( SetSky ); //LRC
@@ -407,13 +407,10 @@ void CHud :: Init( void )
 	CVAR_CREATE( "hud_classautokill", "1", FCVAR_ARCHIVE | FCVAR_USERINFO );		// controls whether or not to suicide immediately on TF class switch
 	CVAR_CREATE( "hud_takesshots", "0", FCVAR_ARCHIVE );		// controls whether or not to automatically take screenshots at the end of a round
 
-	//start glow effect --FragBait0
-	CVAR_CREATE("r_glow", "0", FCVAR_ARCHIVE );
-	//CVAR_CREATE("r_glowmode", "0", FCVAR_ARCHIVE ); //AJH this is now redundant
+	CVAR_CREATE("r_glow", "2", FCVAR_ARCHIVE );
 	CVAR_CREATE("r_glowstrength", "1", FCVAR_ARCHIVE );
-	CVAR_CREATE("r_glowblur", "4", FCVAR_ARCHIVE );
-	CVAR_CREATE("r_glowdark", "2", FCVAR_ARCHIVE );
-	//end glow effect
+	CVAR_CREATE("r_glowblur", "6", FCVAR_ARCHIVE );
+	CVAR_CREATE("r_glowdark", "10", FCVAR_ARCHIVE );
 
 	viewEntityIndex = 0; // trigger_viewset stuff
 	viewFlags = 0;
@@ -464,6 +461,7 @@ void CHud :: Init( void )
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 	m_Particle.Init(); // (LRC) -- 30/08/02 November235: Particles to Order
 
+	m_Lensflare.Init();
 	m_Menu.Init();
 	InitRain();	
 	ServersInit();
@@ -475,14 +473,17 @@ void CHud :: Init( void )
 // cleans up memory allocated for m_rg* arrays
 CHud :: ~CHud()
 {
-#ifdef ENGINE_DEBUG
-	CONPRINT("## CHud::destructor\n");
-#endif
+	#ifdef ENGINE_DEBUG
+		CONPRINT("## CHud::destructor\n");
+	#endif
+
 	delete [] m_rghSprites;
 	delete [] m_rgrcRects;
 	delete [] m_rgszSpriteNames;
+
 	gMP3.Shutdown();
 	ResetRain();
+
 	//LRC - clear all shiny surfaces
 	if (m_pShinySurface)
 	{
@@ -501,6 +502,7 @@ CHud :: ~CHud()
 		}
 		m_pHudList = NULL;
 	}
+
 	ServersShutdown();
 }
 
@@ -522,9 +524,10 @@ int CHud :: GetSpriteIndex( const char *SpriteName )
 
 void CHud :: VidInit( void )
 {
-#ifdef ENGINE_DEBUG
-	CONPRINT("## CHud::VidInit (hi from me)\n");
-#endif
+	#ifdef ENGINE_DEBUG
+		CONPRINT("## CHud::VidInit (hi from me)\n");
+	#endif
+
 	m_scrinfo.iSize = sizeof(m_scrinfo);
 	GetScreenInfo(&m_scrinfo);
 
@@ -634,7 +637,9 @@ void CHud :: VidInit( void )
 	m_TextMessage.VidInit();
 	m_StatusIcons.VidInit();
 	GetClientVoiceMgr()->VidInit();
+
 	m_Particle.VidInit(); // (LRC) -- 30/08/02 November235: Particles to Order
+	m_Lensflare.VidInit();
 }
 
 int CHud::MsgFunc_Logo(const char *pszName,  int iSize, void *pbuf)

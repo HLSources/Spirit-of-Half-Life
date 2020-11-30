@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="cl_dll"
 	ProjectGUID="{FF985F5C-0317-42ED-8B0B-E602CF0E9534}"
 	TargetFrameworkVersion="131072"
@@ -29,8 +29,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy &quot;$(TargetDir)&quot;client.dll &quot;C:\games\half-life\spirit\cl_dlls\client.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;client.dll &quot;C:\games\half-life\spirit\cl_dlls\client 1.8a1.dll&quot;&#x0D;&#x0A;"
-				Outputs="C:\games\half-life\spirit\cl_dlls\client.dll"
+				CommandLine="copy &quot;$(TargetDir)&quot;client.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;client.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll&quot;&#x0D;&#x0A;"
+				Outputs="F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -60,7 +60,7 @@
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName=".\Debug/"
 				BrowseInformation="1"
-				WarningLevel="3"
+				WarningLevel="2"
 				SuppressStartupBanner="true"
 				DebugInformationFormat="4"
 				CompileAs="0"
@@ -127,8 +127,8 @@
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
-				CommandLine="copy &quot;$(TargetDir)&quot;client.dll &quot;c:\games\half-life\spirit\cl_dlls\client1.8a1.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;client.dll &quot;c:\games\half-life\spirit\cl_dlls\client.dll&quot;&#x0D;&#x0A;"
-				Outputs="c:\games\half-life\spirit\cl_dlls\client1.5a4.dll;c:\games\half-life\spirit\cl_dlls\client.dll"
+				CommandLine="copy &quot;$(TargetDir)&quot;client.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client1.8a1.dll&quot;&#x0D;&#x0A;copy &quot;$(TargetDir)&quot;client.dll &quot;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll&quot;&#x0D;&#x0A;"
+				Outputs="F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client1.5a4.dll;F:\Steam\steamapps\hammermaps771\half-life\Spirit18\cl_dlls\client.dll"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
